@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(Duckling());
@@ -21,7 +21,7 @@ class _DucklingState extends State<Duckling>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 2500),
+      duration: Duration(milliseconds: 3500),
     );
 
     _animation = CurvedAnimation(
@@ -44,35 +44,58 @@ class _DucklingState extends State<Duckling>
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black54,
-        body:
-            Column(mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,children: [
-          Center(
-            child: Column(
-              children: [
-                ScaleTransition(
-                  scale: _animation,
-                  child: Image.asset(
-                    'assets/image/ass.png',
-                    width: 300,
-                  ),
-                ),SizedBox(height: 80,),
-                FadeTransition(
-                  opacity: _animation,
-                  child: Text(
-                    'This is Google Fonts',
-                    style: GoogleFonts.lato(
-                      textStyle: Theme.of(context).textTheme.headline4,
-                      fontSize: 48,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.italic,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  FadeTransition(
+                    opacity: _animation,
+                    child: ScaleTransition(
+                      scale: _animation,
+                      child: Image.asset(
+                        'assets/image/ass.png',
+                        width: 300,
+                      ),
                     ),
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 150,
+                  ),
+                  FadeTransition(
+                    opacity: _animation,
+                    child: ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return LinearGradient(
+                          colors: [
+                            Color(0xFF86FBA4),
+                            Color(0xFFFFFFFF)
+                          ], // Customize your gradient colors
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
+                      child: Text(
+                        'Zen',
+                        style: GoogleFonts.nunito(
+                          textStyle: Theme.of(context).textTheme.titleLarge,
+                          fontSize: 69,
+                          fontWeight: FontWeight.w900,
+                          fontStyle: FontStyle.italic,
+                          color:
+                              Colors.white, // Set the initial color of the text
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
