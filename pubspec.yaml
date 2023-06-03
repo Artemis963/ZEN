@@ -1,0 +1,32 @@
+name: my_flutter_app
+description: A new Flutter project.
+
+version: 1.0.0
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/image/ass.png
+#    - assets/fonts/
+
+#  fonts:
+#    - family: OpenSans
+#      fonts:
+#        - asset: assets/fonts/OpenSans-Regular.ttf
+#        - asset: assets/fonts/OpenSans-Bold.ttf
+#          weight: 700
+
+  # Other configuration options for Flutter
