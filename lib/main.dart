@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'home.dart';
 
 void main() {
-  runApp(Duckling());
+  runApp(Duck());
+}
+
+class Duck extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(), // Apply dark theme here
+      home: Duckling(),
+    );
+  }
 }
 
 class Duckling extends StatefulWidget {
@@ -29,7 +41,14 @@ class _DucklingState extends State<Duckling>
       curve: Curves.decelerate,
     );
 
-    _animationController.forward();
+    _animationController.forward().whenComplete(() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (BuildContext context) {
+          return HomeScreen();
+        }),
+      );
+    });
   }
 
   @override
@@ -40,62 +59,58 @@ class _DucklingState extends State<Duckling>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.black54,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  FadeTransition(
-                    opacity: _animation,
-                    child: ScaleTransition(
-                      scale: _animation,
-                      child: Image.asset(
-                        'assets/image/ass.png',
-                        width: 300,
+    return Scaffold(
+      backgroundColor: Colors.black54,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                FadeTransition(
+                  opacity: _animation,
+                  child: ScaleTransition(
+                    scale: _animation,
+                    child: Image.asset(
+                      'assets/image/ass.png',
+                      width: 300,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 150,
+                ),
+                FadeTransition(
+                  opacity: _animation,
+                  child: ShaderMask(
+                    shaderCallback: (Rect bounds) {
+                      return LinearGradient(
+                        colors: [
+                          Color(0xFF86FBA4),
+                          Color(0xFFFFFFFF),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ).createShader(bounds);
+                    },
+                    child: Text(
+                      'Zen',
+                      style: GoogleFonts.nunito(
+                        textStyle: Theme.of(context).textTheme.headline3,
+                        fontSize: 69,
+                        fontWeight: FontWeight.w900,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 150,
-                  ),
-                  FadeTransition(
-                    opacity: _animation,
-                    child: ShaderMask(
-                      shaderCallback: (Rect bounds) {
-                        return LinearGradient(
-                          colors: [
-                            Color(0xFF86FBA4),
-                            Color(0xFFFFFFFF)
-                          ], // Customize your gradient colors
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ).createShader(bounds);
-                      },
-                      child: Text(
-                        'Zen',
-                        style: GoogleFonts.nunito(
-                          textStyle: Theme.of(context).textTheme.titleLarge,
-                          fontSize: 69,
-                          fontWeight: FontWeight.w900,
-                          fontStyle: FontStyle.italic,
-                          color:
-                              Colors.white, // Set the initial color of the text
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
