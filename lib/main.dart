@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:my_flutter_app/user.dart';
 import 'home.dart';
 
 void main() {
@@ -10,6 +11,10 @@ class Duck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes: {
+        '/user': (context) => Duckky(),
+        // Other routes...
+      },
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(), // Apply dark theme here
       home: Duckling(),
@@ -22,8 +27,7 @@ class Duckling extends StatefulWidget {
   _DucklingState createState() => _DucklingState();
 }
 
-class _DucklingState extends State<Duckling>
-    with SingleTickerProviderStateMixin {
+class _DucklingState extends State<Duckling> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
